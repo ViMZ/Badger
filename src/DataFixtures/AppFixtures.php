@@ -12,7 +12,7 @@ abstract class AppFixtures extends Fixture implements OrderedFixtureInterface
 {
     protected Generator $faker;
 
-    private ObjectManager $manager;
+    protected ObjectManager $manager;
 
     abstract protected function loadData(ObjectManager $manager);
 
