@@ -72,7 +72,7 @@ class AchievementController extends AbstractController
     #[Route('/{id}', name: 'achievement_delete', methods: ['POST'])]
     public function delete(Request $request, Achievement $achievement, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $achievement->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$achievement->getId(), $request->request->get('_token'))) {
             $entityManager->remove($achievement);
             $entityManager->flush();
         }
