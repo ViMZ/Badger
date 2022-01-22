@@ -1,11 +1,11 @@
 path = docker
 
 start: 
-	if [$$(docker ps -aq)]; then docker container stop $$(docker ps -aq); fi
+	for c in $$(sudo docker ps -q); do docker kill $$c; done
 	docker-compose up -d;
 
 stop: 
-	docker-compose down
+	for c in $$(sudo docker ps -q); do docker kill $$c; done
 
 build:
 	docker container stop $$(docker ps -aq);
@@ -15,7 +15,7 @@ bash:
 	docker exec -it openrpg_app_1 bash
 
 fix:
-	tools/php-cs-fixer/vendor/bin/php-cs-fixer fix -vvv
+	vendor/bin/php-cs-fixer fix -vvv
 
 phpstan:
 	vendor/bin/phpstan analyse
