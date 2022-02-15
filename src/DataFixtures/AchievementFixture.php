@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Achievement;
 use Doctrine\Persistence\ObjectManager;
 
-class Achievements extends AppFixtures
+class AchievementFixture extends AppFixtures
 {
     public function loadData(ObjectManager $manager): void
     {
@@ -21,6 +21,6 @@ class Achievements extends AppFixtures
 
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }

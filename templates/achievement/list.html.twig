@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Achievement index
+{% endblock %}
+
+{% block body %}
+	<h1>Liste des badges</h1>
+	<a href="{{ path('achievement_new') }}">Créer</a>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Etapes</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for achievement in achievements %}
+				<tr>
+					<td>{{ achievement.name }}</td>
+					<td>{{ achievement.description }}</td>
+					<td>
+						{% for step in achievement.steps %}
+							<span>{{ step.position }}</span>
+							/
+						{% endfor %}
+					</td>
+					<td>
+						<a href="{{ path('achievement_show', {'id': achievement.id}) }}">Voir</a>
+						<a href="{{ path('achievement_edit', {'id': achievement.id}) }}">Editer</a>
+						{{ include('achievement/_delete_form.html.twig') }}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">Aucun élément</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

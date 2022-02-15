@@ -24,7 +24,7 @@ class Achievement
     #[Assert\NotBlank()]
     private ?string $description;
 
-    #[ORM\OneToMany(mappedBy: 'achievement', targetEntity: Step::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'achievement', targetEntity: Step::class, orphanRemoval: true, cascade: ['persist'])]
     private $steps;
 
     #[ORM\OneToMany(mappedBy: 'achievement', targetEntity: UserAchievement::class, orphanRemoval: true)]
@@ -36,6 +36,11 @@ class Achievement
         $this->userAchievements = new ArrayCollection();
         $this->name = $name;
         $this->description = $description;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     public function getId(): ?int

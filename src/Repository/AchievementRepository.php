@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Achievement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Achievement|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,14 @@ class AchievementRepository extends ServiceEntityRepository
         parent::__construct($registry, Achievement::class);
     }
 
-    // /**
-    //  * @return Achievement[] Returns an array of Achievement objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByUser(UserInterface $user)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+            ->join('a.userAchievements', 'ua')
+            ->join('ua.user', 'u')
+            ->andWhere('u = :user')
+            ->setParameter('user', $user)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Achievement
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
