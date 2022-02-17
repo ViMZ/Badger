@@ -15,7 +15,7 @@ bash:
 	docker exec -it openrpg_app_1 bash
 
 fix:
-	vendor/bin/php-cs-fixer fix -vvv
+	vendor/bin/php-cs-fixer fix -vvv --allow-risky=yes
 
 phpstan:
 	vendor/bin/phpstan analyse
