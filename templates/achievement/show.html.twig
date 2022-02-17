@@ -24,7 +24,7 @@
 	</table>
 
 	<a href="{{ path('achievement_list') }}">Retour à la liste</a>
-	<a href="{{ path('achievement_steps', {'id': achivement.id}) }}">Editer les étapes</a>
+	<a href="{{ path('achievement_steps', {'id': achievement.id}) }}">Editer les étapes</a>
 	<a href="{{ path('achievement_edit', {'id': achievement.id}) }}">Editer le badge</a>
 
 	{{ include('achievement/_delete_form.html.twig') }}
