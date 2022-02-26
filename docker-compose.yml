@@ -5,23 +5,15 @@ volumes:
 
 services:
   database:
-    image: 'mysql:latest'
+    image: 'postgres:latest'
     environment:
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'main'
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: sasql
+      POSTGRES_DB: badger
     ports:
-      - 3306:3306
+      - 5432:5432
     volumes:
-      - 'db-data:/var/lib/mysql'
-  test:
-    image: 'mysql:latest'
-    environment:
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'main'
-    ports:
-      - 3307:3306
-    volumes:
-      - 'test-data:/var/lib/mysql'
+      - 'db-data:/var/lib/pgsql'
   adminer:
     image: adminer
     restart: always
@@ -29,12 +21,8 @@ services:
       - 8080:8080
     depends_on:
       - database
-      - test
   app:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-    image: symfony
+    build: docker/symfony
     ports:
       - 81:80
     volumes:
