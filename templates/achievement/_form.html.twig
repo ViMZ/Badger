@@ -1,12 +1,13 @@
 {{ form_start(form) }}
-{{ form_widget(form.name) }}
-{{ form_widget(form.description) }}
-<ul class="steps" data-index="{{ form.steps|length > 0 ? form.steps|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.steps.vars.prototype)|e('html_attr') }}">
-	{% for step in form.steps %}
+{{ form_row(form.name) }}
+{{ form_row(form.description) }}
+{{ form_label(form.badges)}}
+<ul class="badges" data-index="{{ form.badges|length > 0 ? form.badges|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.badges.vars.prototype)|e('html_attr') }}">
+	{% for step in form.badges %}
 		<li>{{form_widget(step)}}</li>
 	{% endfor %}
 </ul>
-<button type="button" class="add_item_link" data-collection-holder-class="steps">Ajouter une étape</button>
+<button type="button" class="add_item_link" data-collection-holder-class="badges">Ajouter un Badge</button>
 <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
 

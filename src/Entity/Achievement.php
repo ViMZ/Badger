@@ -24,18 +24,18 @@ class Achievement
     #[Assert\NotBlank()]
     private ?string $description;
 
-    #[ORM\OneToMany(mappedBy: 'achievement', targetEntity: Step::class, orphanRemoval: true, cascade: ['persist'])]
-    private $steps;
-
     #[ORM\OneToMany(mappedBy: 'achievement', targetEntity: UserAchievement::class, orphanRemoval: true)]
     private $userAchievements;
 
+    #[ORM\OneToMany(mappedBy: 'achievement', targetEntity: Badge::class, orphanRemoval: true, cascade: ['persist'])]
+    private $badges;
+
     public function __construct(string $name = '', string $description = '')
     {
-        $this->steps = new ArrayCollection();
         $this->userAchievements = new ArrayCollection();
         $this->name = $name;
         $this->description = $description;
+        $this->badges = new ArrayCollection();
     }
 
     public function __toString()
@@ -73,36 +73,6 @@ class Achievement
     }
 
     /**
-     * @return Collection|Step[]
-     */
-    public function getSteps(): Collection
-    {
-        return $this->steps;
-    }
-
-    public function addStep(Step $step): self
-    {
-        if (!$this->steps->contains($step)) {
-            $this->steps[] = $step;
-            $step->setAchievement($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStep(Step $step): self
-    {
-        if ($this->steps->removeElement($step)) {
-            // set the owning side to null (unless already changed)
-            if ($step->getAchievement() === $this) {
-                $step->setAchievement(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|UserAchievement[]
      */
     public function getUserAchievements(): Collection
@@ -126,6 +96,36 @@ class Achievement
             // set the owning side to null (unless already changed)
             if ($userAchievement->getAchievement() === $this) {
                 $userAchievement->setAchievement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Badge>
+     */
+    public function getBadges(): Collection
+    {
+        return $this->badges;
+    }
+
+    public function addBadge(Badge $badge): self
+    {
+        if (!$this->badges->contains($badge)) {
+            $this->badges[] = $badge;
+            $badge->setAchievement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBadge(Badge $badge): self
+    {
+        if ($this->badges->removeElement($badge)) {
+            // set the owning side to null (unless already changed)
+            if ($badge->getAchievement() === $this) {
+                $badge->setAchievement(null);
             }
         }
 

@@ -2,7 +2,7 @@ path = docker
 
 start: 
 	for c in $$(sudo docker ps -q); do docker kill $$c; done
-	docker-compose up -d;
+	docker-compose up -d; symfony server:start -d;
 
 stop: 
 	for c in $$(sudo docker ps -q); do docker kill $$c; done
@@ -13,7 +13,7 @@ build:
 	composer i; npm i; npm run build;
 	
 bash:
-	docker exec -it achievement_loose_app_1 bash
+	docker exec -it badger_app_1 bash
 
 fix:
 	vendor/bin/php-cs-fixer fix -vvv --allow-risky=yes

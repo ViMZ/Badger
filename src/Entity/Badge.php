@@ -2,24 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\StepRepository;
+use App\Repository\BadgeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: StepRepository::class)]
-class Step
+#[ORM\Entity(repositoryClass: BadgeRepository::class)]
+class Badge
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'string', length: 255)]
+    private $name;
+
+    #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
     #[ORM\Column(type: 'integer')]
-    private $position;
+    private $step;
 
-    #[ORM\ManyToOne(targetEntity: Achievement::class, inversedBy: 'steps')]
+    #[ORM\ManyToOne(targetEntity: Achievement::class, inversedBy: 'badges')]
     #[ORM\JoinColumn(nullable: false)]
     private $achievement;
 
@@ -28,26 +31,38 @@ class Step
         return $this->id;
     }
 
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getPosition(): ?int
+    public function getStep(): ?int
     {
-        return $this->position;
+        return $this->step;
     }
 
-    public function setPosition(int $position): self
+    public function setStep(int $step): self
     {
-        $this->position = $position;
+        $this->step = $step;
 
         return $this;
     }

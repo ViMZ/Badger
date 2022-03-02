@@ -1,11 +1,11 @@
 version: '3.7'
 volumes:
   db-data:
-  test-data:
+    driver: local
 
 services:
   database:
-    image: 'postgres:latest'
+    build: docker/postgres
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: sasql
@@ -19,14 +19,6 @@ services:
     restart: always
     ports:
       - 8080:8080
-    depends_on:
-      - database
-  app:
-    build: docker/symfony
-    ports:
-      - 81:80
-    volumes:
-      - .:/app/
     depends_on:
       - database
   mailer:

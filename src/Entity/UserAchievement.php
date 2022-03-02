@@ -21,8 +21,7 @@ class UserAchievement
     #[ORM\JoinColumn(nullable: false)]
     private $achievement;
 
-    #[ORM\ManyToOne(targetEntity: Step::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\Column(type: 'integer')]
     private $step;
 
     public function getId(): ?int
@@ -54,12 +53,12 @@ class UserAchievement
         return $this;
     }
 
-    public function getStep(): ?Step
+    public function getStep(): ?int
     {
         return $this->step;
     }
 
-    public function setStep(?Step $step): self
+    public function setStep(int $step): self
     {
         $this->step = $step;
 
