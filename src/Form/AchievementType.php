@@ -21,8 +21,8 @@ class AchievementType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
             ])
-            ->add('steps', CollectionType::class, [
-                'entry_type' => StepType::class,
+            ->add('badges', CollectionType::class, [
+                'entry_type' => BadgeType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'by_reference' => false,

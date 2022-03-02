@@ -3,10 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Achievement;
-use App\Entity\Step;
 use App\Entity\User;
 use App\Form\AchievementType;
-use App\Form\StepType;
 use App\Repository\AchievementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,9 +40,7 @@ class AchievementController extends AbstractController
     #[Route('/new', name: 'achievement_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
-        $step = new Step();
         $achievement = new Achievement();
-        $achievement->addStep($step);
         $form = $this->createForm(AchievementType::class, $achievement);
         $form->handleRequest($request);
 
@@ -97,43 +93,5 @@ class AchievementController extends AbstractController
         }
 
         return $this->redirectToRoute('achievement_list', [], Response::HTTP_SEE_OTHER);
-    }
-
-    #[Route('/{id}/steps', name: 'achievement_steps', methods: ['GET'])]
-    public function listSteps(Achievement $achievement): Response
-    {
-        $steps = $achievement->getSteps();
-
-        return $this->render('step/list.html.twig', [
-            'steps' => $steps,
-            'achievement' => $achievement,
-        ]);
-    }
-
-    #[Route('/{id}/step/new', name: 'achievement_steps_new', methods: ['GET', 'POST'])]
-    public function addStep(Request $request, Achievement $achievement): Response
-    {
-        $step = new Step();
-        $step->setAchievement($achievement);
-        $form = $this->createForm(StepType::class, $step);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($step);
-            $this->em->flush();
-            $this->addFlash('success', 'step.new.success');
-
-            return $this->redirectToRoute(
-                'achievement_steps',
-                ['id' => $achievement->getId()],
-                Response::HTTP_SEE_OTHER
-            );
-        }
-
-        return $this->renderForm('step/new.html.twig', [
-            'achievement' => $achievement,
-            'step' => $step,
-            'form' => $form,
-        ]);
     }
 }

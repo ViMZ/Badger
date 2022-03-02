@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Liste des badges</h1>
+	<h1>Liste des Achievements</h1>
 	<a href="{{ path('achievement_new') }}">Créer</a>
 
 	<table class="table">
@@ -12,7 +12,7 @@
 			<tr>
 				<th>Name</th>
 				<th>Description</th>
-				<th>Etapes</th>
+				<th>Badges</th>
 				<th>actions</th>
 			</tr>
 		</thead>
@@ -22,9 +22,10 @@
 					<td>{{ achievement.name }}</td>
 					<td>{{ achievement.description }}</td>
 					<td>
-						{% for step in achievement.steps %}
-							<span>{{ step.position }}</span>
-							/
+						{% for badge in achievement.badges %}
+							<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+								{{ badge.name }}
+							</span>
 						{% endfor %}
 					</td>
 					<td>
