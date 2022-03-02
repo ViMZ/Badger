@@ -15,9 +15,7 @@ security:
                 property: email
     role_hierarchy:
         ROLE_USER: [IS_AUTHENTICATED_FULLY]
-        ROLE_AUDITOR: [ROLE_USER]
         ROLE_ADMIN: [ROLE_AUDITOR]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
 
     firewalls:
         dev:
@@ -44,7 +42,7 @@ security:
         - { path: ^/login, roles: [] }
         - { path: ^/register, roles: [] }
         - { path: ^/, roles: ['ROLE_USER'] }
-        - { path: ^/user, roles: ['ROLE_ADMIN'] }
+        - { path: ^/admin, roles: ['ROLE_ADMIN'] }
 
 
 when@test:

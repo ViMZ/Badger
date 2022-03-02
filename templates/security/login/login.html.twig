@@ -1,0 +1,48 @@
+{% extends "security/base.html.twig" %}
+
+{% block main %}
+	<form method="post">
+		{% if error %}
+			<div class="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+				<svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+				</svg>
+				<div>
+					<span class="font-large">
+						Erreur :
+					</span>
+					{{ error.messageKey|trans([], 'security', 'fr') }}
+				</div>
+			</div>
+		{% endif %}
+		<div class="mb-6">
+			<label for="inputEmail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
+			<input type="email" id="inputEmail" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" value="{{ last_username }}" autocomplete="email" required autofocus>
+		</div>
+		<div class="mb-6">
+			<label for="inputPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mot de passe</label>
+			<input type="password" id="inputPassword" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" autocomplete="current-password" required>
+		</div>
+		<div class="flex items-start mb-6">
+			<div class="flex items-center h-5">
+				<input id="rememberMe" type="checkbox" name="_remember_me" aria-describedby="remember" class="text-amber-600 w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-amber-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-amber-600 dark:ring-offset-gray-800">
+			</div>
+			<div class="ml-3 text-sm">
+				<label for="rememberMe" class="font-medium text-gray-900 dark:text-gray-300">Rester connecté</label>
+			</div>
+		</div>
+		{# CSRF token #}
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+		<button type="submit" class="text-white bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-600 dark:focus:ring-amber-800">Se connecter</button>
+
+		{% if app.user %}
+			<div class="mb-3">
+				Vous etes déjà connecté en tant que
+				{{ app.user.name ?? app.user.email }},
+				<a href="{{ path('app_logout') }}">Déconnexion</a>
+			</div>
+		{% else %}
+			<a href="{{path('app_register')}}" class="text-amber-600 bg-white hover:bg-amber-100 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-600 dark:focus:ring-amber-800">S'inscrire</a>
+		{% endif %}
+	</form>
+{% endblock %}

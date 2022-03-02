@@ -13,7 +13,7 @@ build:
 	composer i; npm i; npm run build;
 	
 bash:
-	docker exec -it badger_app_1 bash
+	docker exec -it badger_web_1 bash
 
 fix:
 	vendor/bin/php-cs-fixer fix -vvv --allow-risky=yes

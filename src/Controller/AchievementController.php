@@ -28,11 +28,12 @@ class AchievementController extends AbstractController
 
         if (!$user->hasRole(User::ROLE_ADMIN)) {
             return $this->render('achievement/list.html.twig', [
-                'achievements' => $achievementRepository->findByUser($user),
+                'userAchievements' => $achievementRepository->findByUser($user),
+                'allAchievements' => $achievementRepository->findAll(),
             ]);
         }
 
-        return $this->render('achievement/list.html.twig', [
+        return $this->render('admin/achievement/list.html.twig', [
             'achievements' => $achievementRepository->findAll(),
         ]);
     }
@@ -87,10 +88,8 @@ class AchievementController extends AbstractController
     #[Route('/{id}', name: 'achievement_delete', methods: ['POST'])]
     public function delete(Request $request, Achievement $achievement): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$achievement->getId(), $request->request->get('_token'))) {
-            $this->em->remove($achievement);
-            $this->em->flush();
-        }
+        $this->em->remove($achievement);
+        $this->em->flush();
 
         return $this->redirectToRoute('achievement_list', [], Response::HTTP_SEE_OTHER);
     }

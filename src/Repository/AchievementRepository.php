@@ -22,7 +22,7 @@ class AchievementRepository extends ServiceEntityRepository
 
     public function findByUser(UserInterface $user)
     {
-        return $this->createQueryBuilder('a')
+        return $this->createQueryBuilder('a', 'a.id')
             ->join('a.userAchievements', 'ua')
             ->join('ua.user', 'u')
             ->andWhere('u = :user')

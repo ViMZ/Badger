@@ -3,8 +3,29 @@
 {% block title %}Hello UserController!
 {% endblock %}
 
-{% block body %}
-	{% for user in users %}
-		<p>{{user.name ?? user.email}}</p>
-	{% endfor %}
+{% block main %}
+	{% include "components/table.html.twig" with {table} %}
+{# <table class="w-full bg-transparent text-sm text-center">
+	<caption></caption>
+	<thead>
+		<tr>
+			<th class="">Nom</th>
+			<th class="">Progressions</th>
+			<th class="">Badges</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in users %}
+		{% set badgeCount = 0 %}
+		<tr>
+			<td class="">{{user.name}}</td>
+			<td class="">{{user.userAchievements|length}}</td>
+			{% for userAchievement in user.userAchievements %}
+				{% set badgeCount = badgeCount + userAchievement.achievement.badges|length %}
+			{% endfor %}
+			<td class="">{{badgeCount}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table> #}
 {% endblock %}
