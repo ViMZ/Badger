@@ -2,7 +2,7 @@ path = docker
 
 start: 
 	for c in $$(sudo docker ps -q); do docker kill $$c; done
-	docker-compose up -d; symfony server:start -d;
+	docker-compose up -d;
 
 stop: 
 	for c in $$(sudo docker ps -q); do docker kill $$c; done

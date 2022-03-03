@@ -21,6 +21,14 @@ services:
       - 8080:8080
     depends_on:
       - database
+  web:
+    build: docker/symfony
+    ports:
+      - 8081:80
+    depends_on:
+      - database
+    volumes:
+      - '.:/var/www'
   mailer:
     image: 'schickling/mailcatcher'
     ports: [ 1025, 1080 ]
