@@ -7,20 +7,18 @@
 # Installe les dépendances back et front, build les assets
 make build
 
-# Stop tous les containers et lance ceux du projet, lance le serveur symfony
+# Stop tous les containers et lance ceux du projet
 make start
 
 # Initialise la base de données
-symfony console d:s:c
-symfony console d:f:l -n
+docker exec -it badger_web_1 bin/console d:s:c
+docker exec -it badger_web_1 bin/console d:f:l -n
 ```
 
 ## URLs
 ```bash
 # Ouvrir l'appli web
-    symfony open:local
-# ou
-    http://127.0.0.1:8000/
+    http://127.0.0.1:8081/
 ```
 ```bash
 # Adminer de la BDD : password : sasql, système : PostGreSQL
