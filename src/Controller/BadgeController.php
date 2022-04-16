@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Badge;
 use App\Entity\User;
+use App\Form\BadgeGiveType;
 use App\Form\BadgeType;
-use App\Repository\BadgeRepository;
+use App\Service\BadgeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,26 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/badge')]
 class BadgeController extends AbstractController
 {
-    #[Route('/', name: 'badge_index', methods: ['GET'])]
-    public function index(BadgeRepository $badgeRepository): Response
+    private BadgeService $badgeService;
+
+    public function __construct(BadgeService $badgeService)
     {
-        /** @var User */
-        $user = $this->getUser();
-
-        if ($user->hasRole(User::ROLE_ADMIN)) {
-            return $this->render('badge/index.html.twig', [
-                'badges' => $badgeRepository->findAll(),
-            ]);
-        }
-
-        return $this->render('badge/index.html.twig', [
-            'badges' => $badgeRepository->findBy(['user' => $user]),
-        ]);
+        $this->badgeService = $badgeService;
     }
 
     #[Route('/new', name: 'badge_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
         $badge = new Badge();
         $form = $this->createForm(BadgeType::class, $badge);
         $form->handleRequest($request);
@@ -52,6 +44,25 @@ class BadgeController extends AbstractController
         ]);
     }
 
+    #[Route('/give', name: 'badge_give', methods: ['GET', 'POST'])]
+    public function give(Request $request): Response
+    {
+        $form = $this->createForm(BadgeGiveType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Badge attribué avec succès');
+            $data = $form->getData();
+            $this->badgeService->giveBadge($data['user'], $data['achievement']);
+
+            return $this->redirectToRoute('achievement_list', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('badge/give.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/{id}', name: 'badge_show', methods: ['GET'])]
     public function show(Badge $badge): Response
     {
@@ -63,6 +74,7 @@ class BadgeController extends AbstractController
     #[Route('/{id}/edit', name: 'badge_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Badge $badge, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
         $form = $this->createForm(BadgeType::class, $badge);
         $form->handleRequest($request);
 
@@ -81,6 +93,7 @@ class BadgeController extends AbstractController
     #[Route('/{id}', name: 'badge_delete', methods: ['POST'])]
     public function delete(Request $request, Badge $badge, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
         if ($this->isCsrfTokenValid('delete'.$badge->getId(), $request->request->get('_token'))) {
             $entityManager->remove($badge);
             $entityManager->flush();

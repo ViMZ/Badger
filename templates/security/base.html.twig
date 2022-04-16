@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<body class="bg-stone-200">
+		<header>
+			{% block header %}{% endblock %}
+		</header>
+		<main>
+			<div class="rounded-xl bg-white m-20 sm:p-6 w-1/2 mx-auto">
+				{% block main %}
+					{#  #}
+				{% endblock %}
+			</div>
+		</main>
+		<footer>
+			{% block footer %}{% endblock %}
+		</footer>
+	</body>
+{% endblock %}

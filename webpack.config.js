@@ -1,7 +1,4 @@
 const Encore = require('@symfony/webpack-encore');
-const PurgeCssPlugin = require('purgecss-webpack-plugin');
-const glob = require('glob-all');
-const path = require('path')
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -24,6 +21,11 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[ext]'
+    })
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     // .enableStimulusBridge('./assets/controllers.json')
@@ -75,17 +77,5 @@ Encore
     //.autoProvidejQuery()
     .enablePostCssLoader()
 ;
-
-if (Encore.isProduction()) {
-    Encore.addPlugin(new PurgeCssPlugin({
-          paths: glob.sync([
-              path.join(__dirname, 'templates/**/*.html.twig')
-          ]),
-          defaultExtractor: (content) => {
-              return content.match(/[\w-/:]+(?<!:)/g) || [];
-          }
-      }));
-  }
-
 
 module.exports = Encore.getWebpackConfig();

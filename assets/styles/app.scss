@@ -10,4 +10,28 @@
 
 body {
     font-family: 'Baskerville';
+    background-color: white;
+    color: rgb(42, 42, 42);
+    border-color: rgb(42, 42, 42);
 }
+
+// Muuri Grid
+.grid {
+    position: relative;
+  }
+  .item {
+    position: absolute;
+    z-index: 1;
+  }
+  .item.muuri-item-dragging {
+    z-index: 3;
+  }
+  .item.muuri-item-releasing {
+    z-index: 2;
+  }
+  .item.muuri-item-hidden {
+    z-index: 0;
+  }
+  .item-content {
+    position: relative;
+  }

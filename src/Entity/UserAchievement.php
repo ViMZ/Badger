@@ -22,7 +22,13 @@ class UserAchievement
     private $achievement;
 
     #[ORM\Column(type: 'integer')]
-    private $step;
+    private $step = 1;
+
+    public function __construct(User $user, Achievement $achievement)
+    {
+        $this->user = $user;
+        $this->achievement = $achievement;
+    }
 
     public function getId(): ?int
     {
@@ -34,23 +40,9 @@ class UserAchievement
         return $this->user;
     }
 
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getAchievement(): ?Achievement
     {
         return $this->achievement;
-    }
-
-    public function setAchievement(?Achievement $achievement): self
-    {
-        $this->achievement = $achievement;
-
-        return $this;
     }
 
     public function getStep(): ?int
@@ -61,6 +53,13 @@ class UserAchievement
     public function setStep(int $step): self
     {
         $this->step = $step;
+
+        return $this;
+    }
+
+    public function addStep(): self
+    {
+        ++$this->step;
 
         return $this;
     }

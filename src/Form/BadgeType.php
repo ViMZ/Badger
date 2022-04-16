@@ -12,9 +12,16 @@ class BadgeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('step');
+            ->add('name', null,
+            [
+                'label' => 'Nom',
+            ])
+            ->add('description', null, [
+                'label' => 'Description',
+            ])
+            ->add('step', null, [
+                'label' => 'Palier',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

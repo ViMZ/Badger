@@ -1,45 +1,55 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title %}Achievement index
+
+{% block title %}
+    Mes Badges
 {% endblock %}
 
-{% block body %}
-	<h1>Liste des Achievements</h1>
-	<a href="{{ path('achievement_new') }}">Créer</a>
+{% block main %}
+    {% set ownedNbr = 0 %}
+    {% set notownedNbr = 0 %}
+    {% for achievement in allAchievements %}
+            {% if userAchievements[achievement.id] is defined %}
+            {% set ownedNbr = ownedNbr + 1 %}
+            {% else %}
+            {% set notownedNbr = notownedNbr + 1 %}
+            {% endif %}
+    {% endfor %}
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Badges</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for achievement in achievements %}
-				<tr>
-					<td>{{ achievement.name }}</td>
-					<td>{{ achievement.description }}</td>
-					<td>
-						{% for badge in achievement.badges %}
-							<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
-								{{ badge.name }}
-							</span>
-						{% endfor %}
-					</td>
-					<td>
-						<a href="{{ path('achievement_show', {'id': achievement.id}) }}">Voir</a>
-						<a href="{{ path('achievement_edit', {'id': achievement.id}) }}">Editer</a>
-						{{ include('achievement/_delete_form.html.twig') }}
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="4">Aucun élément</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
+    <div class="grid-filters p-5">
+        <button id="grid-filter-owned" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black PINK hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
+            Possédés 
+            <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
+                &nbsp;({{ownedNbr}})
+            </span>
+        </button>
+        <button id="grid-filter-not-owned" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black bg-black bg-opacity-10 hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
+            Non-Possédés
+            <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
+                &nbsp;({{notownedNbr}})
+            </span>
+        </button>
+        <button id="grid-filter-none" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black bg-black bg-opacity-10 hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
+            Tous
+            <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
+                &nbsp;({{allAchievements|length}})
+            </span>
+        </button>
+    </div>
+    <div class="grid"> 
+        {% for achievement in allAchievements %}
+            {% if userAchievements[achievement.id] is defined %}
+                {% include "components/badge_short.html.twig" with {
+                    achievement,
+                    'owned': true
+                } %}
+            {% else %}
+                {% include "components/badge_short.html.twig" with {
+                    achievement,
+                    'owned': false
+                } %}
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}
+

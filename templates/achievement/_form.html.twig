@@ -1,30 +1,31 @@
+{% form_theme form 'theme/form_theme.html.twig' %}
+
 {{ form_start(form) }}
-{{ form_row(form.name) }}
-{{ form_row(form.description) }}
-{{ form_label(form.badges)}}
-<ul class="badges" data-index="{{ form.badges|length > 0 ? form.badges|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.badges.vars.prototype)|e('html_attr') }}">
-	{% for step in form.badges %}
-		<li>{{form_widget(step)}}</li>
-	{% endfor %}
-</ul>
-<button type="button" class="add_item_link" data-collection-holder-class="badges">Ajouter un Badge</button>
-<button class="btn">{{ button_label|default('Save') }}</button>
+	<div class="p-5 my-3 border border-black rounded">
+		{{ form_row(form.name) }}
+		{{ form_row(form.description) }}
+		{{ form_label(form.badges) }}
+		<ul class="badges p-5 my-3" data-index="{{ form.badges|length > 0 ? form.badges|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.badges.vars.prototype)|e('html_attr') }}">
+			{{form_widget(form.badges)}}
+		</ul>
+		<button type="button" id="add_item_link" data-collection-holder-class="badges" class="text-white bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-600 dark:focus:ring-amber-800">Ajouter un Badge</button>
+	</div>
+	<div class="flex justify-end">{{form_row(form.submit)}}</div>
 {{ form_end(form) }}
 
 <script>
 	const addFormToCollection = (e) => {
-const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+		console.log(document.querySelector('.badges'));
+		const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
-const item = document.createElement('li');
+		const item = document.createElement('li');
 
-item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
+		item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
 
-collectionHolder.appendChild(item);
+		collectionHolder.appendChild(item);
 
-collectionHolder.dataset.index ++;
-};
+		collectionHolder.dataset.index ++;
+	};
 
-document.querySelectorAll('.add_item_link').forEach(btn => {
-btn.addEventListener("click", addFormToCollection)
-});
+	document.getElementById('add_item_link').addEventListener("click", addFormToCollection);
 </script>

@@ -84,7 +84,6 @@ class Achievement
     {
         if (!$this->userAchievements->contains($userAchievement)) {
             $this->userAchievements[] = $userAchievement;
-            $userAchievement->setAchievement($this);
         }
 
         return $this;
@@ -92,12 +91,7 @@ class Achievement
 
     public function removeUserAchievement(UserAchievement $userAchievement): self
     {
-        if ($this->userAchievements->removeElement($userAchievement)) {
-            // set the owning side to null (unless already changed)
-            if ($userAchievement->getAchievement() === $this) {
-                $userAchievement->setAchievement(null);
-            }
-        }
+        $this->userAchievements->removeElement($userAchievement);
 
         return $this;
     }

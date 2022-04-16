@@ -46,6 +46,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->userAchievements = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -100,7 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -145,7 +150,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->userAchievements->contains($userAchievement)) {
             $this->userAchievements[] = $userAchievement;
-            $userAchievement->setUser($this);
         }
 
         return $this;
@@ -153,12 +157,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeUserAchievement(UserAchievement $userAchievement): self
     {
-        if ($this->userAchievements->removeElement($userAchievement)) {
-            // set the owning side to null (unless already changed)
-            if ($userAchievement->getUser() === $this) {
-                $userAchievement->setUser(null);
-            }
-        }
+        $this->userAchievements->removeElement($userAchievement);
 
         return $this;
     }

@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Achievement
+{% block title %}Créer un achievement
 {% endblock %}
 
-{% block body %}
-	<h1>Create new Achievement</h1>
+{% block main %}
+	<a href="{{ path('achievement_list') }}" class="text-amber-500 font-bold text-xl block mb-5"><i class="fa-solid fa-backward"></i> Retour</a>
+	<h1 class="text-2xl my-3">Créer un Achievement</h1>
 
 	{{ include('achievement/_form.html.twig') }}
 
-	<a href="{{ path('achievement_list') }}">back to list</a>
 {% endblock %}

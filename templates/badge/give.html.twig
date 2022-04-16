@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'theme/form_theme.html.twig' %}
+
+{% block title %}Donner un Badge
+{% endblock %}
+
+{% block main %}
+    <a class="text-5xl inline-flex items-center my-5 py-2 pr-4 pl-3 transition-all rounded-lg text-black hover:bg-white hover:bg-opacity-50" href="{{ path('achievement_list') }}"><i class="fa-solid fa-arrow-left-long"></i></a>
+    {{ form_start(form) }}
+        <div class="flex flex-wrap">
+            <div class="w-1/2 p-5">{{ form_widget(form.user) }}</div>
+            <div class="w-1/2 p-5">{{ form_widget(form.achievement) }}</div>
+            <div class="m-auto inline-flex items-center px-5 py-2.5 text-sm border font-medium text-center transition-all rounded-lg text-black bg-white hover:border-black focus:ring-4 focus:outline-none focus:ring-black focus:ring-opacity-30">{{ form_widget(form.submit) }}</div>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
