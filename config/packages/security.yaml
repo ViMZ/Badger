@@ -15,7 +15,7 @@ security:
                 property: email
     role_hierarchy:
         ROLE_USER: [IS_AUTHENTICATED_FULLY]
-        ROLE_ADMIN: [ROLE_AUDITOR]
+        ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
 
     firewalls:
         dev:
@@ -25,6 +25,7 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\LoginAuthenticator
+            switch_user: true
             logout:
                 path: app_logout
                 # where to redirect after logout
