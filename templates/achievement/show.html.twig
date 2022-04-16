@@ -1,11 +1,104 @@
+{# Vars : 
+	achievement : Entité contenant les données
+	user: L'utilisateur actuel
+#}
 {% extends 'base.html.twig' %}
 
 {% block title %}Catégories de badges
 {% endblock %}
 
 {% block main %}
-	{% include "components/badge_full.html.twig" with {
-		achievement,
-		'owned': true
-	} %}
+	<a class="text-5xl absolute inline-flex items-center my-5 py-2 pr-4 pl-3 transition-all rounded-lg text-black hover:bg-white hover:bg-opacity-50" href="{{ path('achievement_list') }}"><i class="fa-solid fa-arrow-left-long"></i></a>
+	<div class="p-4 mx-auto max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+		<span class="flex align-center justify-center">
+			<img class="rounded-t-lg w-52 border-amber-700" src="{{ asset('build/images/default_badge_icon.svg') }}" alt="" />
+		</span>
+		<div class="text-center">
+			<h5 class="h-12 mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{achievement.name}}</h5>
+			<p class="mb-3 p-10 font-normal text-xs text-gray-700 dark:text-gray-400">
+				{{achievement.description}}
+			</p>
+			{% if is_granted('ROLE_ADMIN') %}
+				{% include "components/button_primary.html.twig" with {"type": "a", "url":path('achievement_delete', {'id': achievement.id}), "text": "Supprimer"} %}
+				{% include "components/button_primary.html.twig" with {"type": "a", "url":path('achievement_edit', {'id': achievement.id}), "text": "Editer"} %}
+			{% endif %}
+		</div>
+		<div class="flow-root">
+			<ul role="list" class="mt-10 divide-y divide-gray-200 dark:divide-gray-700">
+				{% if achievement.badges.isEmpty %}
+					<p class="text-center text-gray-400">Aucun badge</p>
+				{% else %}
+					<li class="">
+						<div class="flex items-center space-x-4">
+							<div class="flex-shrink-0">
+								<div class="w-8 h-8"></div>
+							</div>
+							<div class="flex-1 min-w-0">
+							</div>
+							<div class="inline-flex items-center text-xs font-semibold text-gray-900 dark:text-white">
+								Points requis
+							</div>
+						</div>
+					</li>
+					{% for badge in achievement.badges %}
+						{% if is_granted('ROLE_ADMIN') %}
+							{% set isOwned = true %}
+						{% else %}
+							{% set isOwned = userAchievement is not same as(null) ? userAchievement.step >= badge.step : false %}
+						{% endif %}
+						
+						<li class="py-3 sm:py-4 {{isOwned ? '' : 'grayscale'}}">
+							<div class="flex items-center space-x-4">
+								<div class="flex-shrink-0 bg-amber-500 rounded-full">
+									<a href="{{path('badge_show', {'id': badge.id})}}">
+										<img class="w-8 h-8 rounded-full" src="{{asset('build/images/ribbon-badge-svgrepo-com.svg')}}" alt="" srcset="">
+									</a>
+								</div>
+								<div class="flex-1 min-w-0">
+									<p class="text-sm font-medium {{isOwned ? 'text-gray-900' : 'text-gray-400'}} truncate dark:text-white">
+										{{badge.name}}
+									</p>
+									<p class="text-sm {{isOwned ? 'text-gray-500' : 'text-gray-300'}} truncate dark:text-gray-400">
+										{{badge.description is null ? 'Aucune description' : badge.description}}
+									</p>
+								</div>
+								<div class="inline-flex items-center text-base font-semibold {{isOwned ? 'text-gray-900' : 'text-gray-400'}} dark:text-white">
+									{{badge.step}}
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				{% endif %}
+			</ul>
+		</div>
+		{# <div class="mx-20 flex flex-wrap">
+			{% for badge in achievement.badges %}
+				{% for userAchievement in app.user.userAchievements %}
+					{% if  userAchievement.achievement is same as(badge.achievement) %}
+						{% if userAchievement.step >= badge.step %}
+							<div class="flex flex-col flex-wrap justify-center text-center mx-2">
+								<div class="m-auto w-36">{{badge.name}}</div>
+								<a
+									class="m-auto flex flex-col justify-center align-middle bg-amber-500 p-10 w-52 h-52 rounded-full border-2 text-white border-amber-500 order-{{badge.step}} transition-all hover:text-white hover:border-white hover:shadow-xl"
+									style="background-image: url('/build/images/ribbon-badge-svgrepo-com.svg'); background-size: contain;"
+									href="{{path('badge_show', {'id': badge.id})}}"
+								>
+								</a>
+							</div>
+						{% else %}
+							<div class="grayscale flex flex-col flex-wrap justify-center text-center mx-2 ">
+								<div class="m-auto w-36">{{badge.name}}</div>
+								<a
+									class="m-auto flex flex-col justify-center align-middle bg-amber-500 p-10 w-52 h-52 rounded-full border-2 text-white border-amber-500 order-{{badge.step}} transition-all hover:text-white hover:border-white hover:shadow-xl"
+									style="background-image: url('/build/images/ribbon-badge-svgrepo-com.svg'); background-size: contain;"
+									href="{{path('badge_show', {'id': badge.id})}}"
+								>
+								</a>
+							</div>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		</div> #}
+	</div>
 {% endblock %}

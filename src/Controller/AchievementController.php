@@ -6,6 +6,7 @@ use App\Entity\Achievement;
 use App\Entity\User;
 use App\Form\AchievementType;
 use App\Repository\AchievementRepository;
+use App\Repository\UserAchievementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,10 +61,14 @@ class AchievementController extends AbstractController
     }
 
     #[Route('/{id}', name: 'achievement_show', methods: ['GET'])]
-    public function show(Achievement $achievement): Response
+    public function show(Achievement $achievement, UserAchievementRepository $userAchievementRepository): Response
     {
+        $user = $this->getUser();
+        $userAchievement = $userAchievementRepository->findOneBy(['achievement' => $achievement, 'user' => $user]);
+
         return $this->render('achievement/show.html.twig', [
             'achievement' => $achievement,
+            'userAchievement' => $userAchievement,
         ]);
     }
 
