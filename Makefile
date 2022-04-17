@@ -19,7 +19,7 @@ fix:
 	vendor/bin/php-cs-fixer fix -vvv --allow-risky=yes
 
 phpstan:
-	vendor/bin/phpstan analyse
+	vendor/bin/phpstan analyse --memory-limit=-1
 
 test:
 	vendor/bin/phpunit
