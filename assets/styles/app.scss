@@ -8,6 +8,11 @@
     src: url('./Fonts/LibreBaskerville-Bold.ttf');
 }
 
+// Imports
+@import 'vars';
+@import 'Component/Button';
+@import 'Component/Form';
+
 body {
     font-family: 'Baskerville';
     background-color: white;

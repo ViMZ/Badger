@@ -26,11 +26,13 @@ class AchievementType extends AbstractType
                 'entry_type' => BadgeType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
+                'label' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'row_attr' => [
-                    'class' => 'text-white bg-amber-600 hover:bg-amber-800 hover:cursor-pointer focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm w-auto px-5 py-2.5 text-center',
+                    'class' => 'Button Button-primary',
                 ],
                 'label' => 'Enregistrer',
             ])

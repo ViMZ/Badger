@@ -1,0 +1,17 @@
+.EntityForm {
+    border: 1px solid $shadow;
+    border-radius: $border_radius;
+    padding: 1em;
+    margin: 2em 0;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
+    
+    & .Collection>li {
+        margin-top: 0.5em;
+        border-radius: $border_radius;
+        border: 1px solid $shadow;
+        box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
+        background-color: white;
+        padding: 1em;
+    }
+}

@@ -4,11 +4,13 @@
 {% endblock %}
 
 {% block main %}
-	<h1>Editer Achievement</h1>
+	{% block form_header %}
+		<div class="relative justify-center">
+			<a class="text-3xl px-5 left-0 absolute transition-all rounded-lg text-black hover:bg-white hover:bg-opacity-50" href="{{ path('achievement_list') }}"><i class="fa-solid fa-arrow-left-long"></i></a>
+			<h1 class="text-center text-xl">Editer "{{achievement.name}}"</h1>
+		</div>
+	{% endblock %}
 
 	{{ include('achievement/_form.html.twig', {'button_label': 'Update'}) }}
 
-	<a href="{{ path('achievement_list') }}">Retour à la liste</a>
-
-	{{ include('achievement/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,0 +1,41 @@
+.Button {
+    font-size: small;
+    color: white;
+    border-radius: 7.5px;
+    padding: 0.5em 1em;
+    border-width: 1px;
+    transition: 0.1s ease-in-out;
+}
+
+.Button-delete {
+    background-color: $danger;
+
+    &:hover {
+        background: none;
+        border: 1px solid $danger;
+        color: $danger;
+    }
+}
+
+.Button-primary {
+    background-color: $primary;
+
+    &:hover {
+        background: none;
+        border: 1px solid $primary;
+        color: $primary;
+    }
+
+    &.Button--simple {
+        background: none;
+        
+        &:hover {
+            color: $primary;
+        }
+    }
+}
+
+
+.Button--xs {
+    font-size: x-small;
+}

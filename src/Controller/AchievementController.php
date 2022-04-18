@@ -75,6 +75,7 @@ class AchievementController extends AbstractController
     #[Route('/{id}/edit', name: 'achievement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Achievement $achievement): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $form = $this->createForm(AchievementType::class, $achievement);
         $form->handleRequest($request);
 
