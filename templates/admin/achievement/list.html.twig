@@ -77,6 +77,7 @@
 										<a href="{{ path('achievement_edit', {'id': achievement.id}) }}" class="text-amber-600 dark:text-amber-500 hover:underline">Editer</a>
 									</td>
 									<td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+										<button type="submit" form="delete_form" class="text-red-800 dark:text-amber-500 hover:underline text-xl" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
 										{{ include('achievement/_delete_form.html.twig') }}
 									</td>
 								</tr>
