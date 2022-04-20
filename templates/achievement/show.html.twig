@@ -19,8 +19,9 @@
 				{{achievement.description}}
 			</p>
 			{% if is_granted('ROLE_ADMIN') %}
-				{% include "components/button_primary.html.twig" with {"type": "a", "url":path('achievement_delete', {'id': achievement.id}), "text": "Supprimer"} %}
+				<button type="submit" form="delete_form" class="inline-flex items-center px-5 py-2.5 text-sm border font-medium text-center transition-all rounded-lg text-black bg-white hover:border-black focus:ring-4 focus:outline-none focus:ring-black focus:ring-opacity-30">Supprimer</button>
 				{% include "components/button_primary.html.twig" with {"type": "a", "url":path('achievement_edit', {'id': achievement.id}), "text": "Editer"} %}
+				{{ include('achievement/_delete_form.html.twig') }}
 			{% endif %}
 		</div>
 		<div class="flow-root">
@@ -71,34 +72,5 @@
 				{% endif %}
 			</ul>
 		</div>
-		{# <div class="mx-20 flex flex-wrap">
-			{% for badge in achievement.badges %}
-				{% for userAchievement in app.user.userAchievements %}
-					{% if  userAchievement.achievement is same as(badge.achievement) %}
-						{% if userAchievement.step >= badge.step %}
-							<div class="flex flex-col flex-wrap justify-center text-center mx-2">
-								<div class="m-auto w-36">{{badge.name}}</div>
-								<a
-									class="m-auto flex flex-col justify-center align-middle bg-amber-500 p-10 w-52 h-52 rounded-full border-2 text-white border-amber-500 order-{{badge.step}} transition-all hover:text-white hover:border-white hover:shadow-xl"
-									style="background-image: url('/build/images/ribbon-badge-svgrepo-com.svg'); background-size: contain;"
-									href="{{path('badge_show', {'id': badge.id})}}"
-								>
-								</a>
-							</div>
-						{% else %}
-							<div class="grayscale flex flex-col flex-wrap justify-center text-center mx-2 ">
-								<div class="m-auto w-36">{{badge.name}}</div>
-								<a
-									class="m-auto flex flex-col justify-center align-middle bg-amber-500 p-10 w-52 h-52 rounded-full border-2 text-white border-amber-500 order-{{badge.step}} transition-all hover:text-white hover:border-white hover:shadow-xl"
-									style="background-image: url('/build/images/ribbon-badge-svgrepo-com.svg'); background-size: contain;"
-									href="{{path('badge_show', {'id': badge.id})}}"
-								>
-								</a>
-							</div>
-						{% endif %}
-					{% endif %}
-				{% endfor %}
-			{% endfor %}
-		</div> #}
 	</div>
 {% endblock %}
