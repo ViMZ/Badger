@@ -30,4 +30,14 @@ class AchievementRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function searchWith(string $query): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.name LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
