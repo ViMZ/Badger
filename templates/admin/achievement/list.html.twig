@@ -8,7 +8,7 @@
 	<a href="{{ path('achievement_new') }}" class="text-white bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-amber-600 dark:hover:bg-amber-600 dark:focus:ring-amber-800">Créer</a>
 	<div class="flex flex-col">
 		<div class="overflow-x-auto shadow-md sm:rounded-lg">
-			<div class="inline-block min-w-full align-middle dark:bg-gray-800">
+			<div class="inline-block min-w-full align-middle dark:bg-gray-800" data-controller="achievements">
 				<div class="p-4">
 					<label for="table-search" class="sr-only">Rechercher</label>
 					<div class="relative mt-1">
@@ -17,7 +17,7 @@
 								<path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
 							</svg>
 						</div>
-						<input type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" placeholder="Search for items">
+						<input data-action="achievements#search" type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" placeholder="Search for items">
 					</div>
 				</div>
 				<div class="overflow-auto">
@@ -50,39 +50,8 @@
 								</th>
 							</tr>
 						</thead>
-						<tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-							{% for achievement in achievements %}
-								<tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-									<td class="p-4 w-4">
-										<div class="flex items-center">
-											<input id="checkbox-search-1" type="checkbox" class="w-4 h-4 text-amber-600 bg-gray-100 rounded border-gray-300 focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-											<label for="checkbox-search-1" class="sr-only">checkbox</label>
-										</div>
-									</td>
-									<td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{achievement.name}}</td>
-									<td class="py-4 px-6 text-sm font-medium text-gray-900 dark:text-white">{{achievement.description}}</td>
-									<td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-										{% if achievement.badges is not empty %}
-											{% for badge in achievement.badges %}
-												<a href="{{ path('badge_show', {'id': badge.id})}}" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-amber-200 dark:text-amber-800 dark:hover:bg-amber-300">{{badge.name}}</a>
-											{% endfor %}
-										{% else %}
-											Aucun Badge
-										{% endif %}
-									</td>
-									<td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-										<a href="{{ path('achievement_show', {'id': achievement.id}) }}" class="text-amber-600 dark:text-amber-500 hover:underline">Voir</a>
-									</td>
-									<td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-										<a href="{{ path('achievement_edit', {'id': achievement.id}) }}" class="text-amber-600 dark:text-amber-500 hover:underline">Editer</a>
-									</td>
-									<td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-										<button type="submit" form="delete_form" class="text-red-800 dark:text-amber-500 hover:underline text-xl" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
-										{{ include('achievement/_delete_form.html.twig') }}
-									</td>
-								</tr>
-							{% endfor %}
-
+						<tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700" data-achievements-target="resultList">
+							{% include "admin/achievement/search_result.html.twig" %}
 						</tbody>
 					</table>
 				</div>

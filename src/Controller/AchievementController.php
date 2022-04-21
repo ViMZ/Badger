@@ -60,7 +60,7 @@ class AchievementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'achievement_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'achievement_show', methods: ['GET'], requirements: ['id' => '\d+'])]
     public function show(Achievement $achievement, UserAchievementRepository $userAchievementRepository): Response
     {
         $user = $this->getUser();
@@ -69,6 +69,14 @@ class AchievementController extends AbstractController
         return $this->render('achievement/show.html.twig', [
             'achievement' => $achievement,
             'userAchievement' => $userAchievement,
+        ]);
+    }
+
+    #[Route('/search/{query}', name: 'achievement_search', methods: ['GET'])]
+    public function search(Request $request, AchievementRepository $achievementRepository, string $query = ''): Response
+    {
+        return $this->render('admin/achievement/search_result.html.twig', [
+            'achievements' => $achievementRepository->searchWith($query),
         ]);
     }
 
