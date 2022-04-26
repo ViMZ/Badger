@@ -17,21 +17,21 @@
     {% endfor %}
 
     <div class="grid-filters p-5">
-        <button id="grid-filter-owned" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black PINK hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
+        <button id="grid-filter-owned" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black bg-black bg-opacity-10 hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
             Possédés 
-            <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
+            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold rounded-full">
                 &nbsp;({{ownedNbr}})
             </span>
         </button>
         <button id="grid-filter-not-owned" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black bg-black bg-opacity-10 hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
             Non-Possédés
-            <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
+            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold rounded-full">
                 &nbsp;({{notownedNbr}})
             </span>
         </button>
         <button id="grid-filter-none" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black bg-black bg-opacity-10 hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
             Tous
-            <span class="inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
+            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold rounded-full">
                 &nbsp;({{allAchievements|length}})
             </span>
         </button>
