@@ -15,7 +15,7 @@
             {% set notownedNbr = notownedNbr + 1 %}
             {% endif %}
     {% endfor %}
-
+    <div class="px-5"><input id="grid-filter-search" data-action="achievements#search" value="{{app.request.query.get('query')}}" type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" placeholder="Search for items"></div> 
     <div class="grid-filters p-5">
         <button id="grid-filter-owned" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black bg-black bg-opacity-10 hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
             Possédés 
@@ -36,7 +36,7 @@
             </span>
         </button>
     </div>
-    <div class="grid"> 
+    <div class="grid">
         {% for achievement in allAchievements %}
             {% if userAchievements[achievement.id] is defined %}
                 {% include "components/badge_short.html.twig" with {
