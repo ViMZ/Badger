@@ -1,0 +1,11 @@
+{% set minResults = (paginator.getItemNumberPerPage) * (paginator.getCurrentPageNumber -1) %}
+{% set maxResults = minResults + paginator.getItemNumberPerPage %}
+{% set maxResults = maxResults < paginator.getTotalItemCount ? maxResults : paginator.getTotalItemCount %}
+
+<div class="flex justify-between bg-gray-100">
+    <div class="flex align-middle p-3">Total : {{paginator.getTotalItemCount}}</div>
+    <div class="flex align-middle p-3">Résultats : {{minResults}} - {{maxResults}} </div>
+    <div class="navigation block">
+        {{ knp_pagination_render(paginator, null, null , {'custom_route': route}) }}
+    </div>
+</div>

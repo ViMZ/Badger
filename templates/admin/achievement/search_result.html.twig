@@ -1,31 +1,65 @@
-{% for achievement in achievements %}
-    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-        <td class="p-4 w-4">
-            <div class="flex items-center">
-                <input id="checkbox-search-1" type="checkbox" class="w-4 h-4 text-amber-600 bg-gray-100 rounded border-gray-300 focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="checkbox-search-1" class="sr-only">checkbox</label>
-            </div>
-        </td>
-        <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{achievement.name}}</td>
-        <td class="py-4 px-6 text-sm font-medium text-gray-900 dark:text-white">{{achievement.description}}</td>
-        <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            {% if achievement.badges is not empty %}
-                {% for badge in achievement.badges %}
-                    <a href="{{ path('badge_show', {'id': badge.id})}}" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-amber-200 dark:text-amber-800 dark:hover:bg-amber-300">{{badge.name}}</a>
-                {% endfor %}
-            {% else %}
-                Aucun Badge
-            {% endif %}
-        </td>
-        <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-            <a href="{{ path('achievement_show', {'id': achievement.id}) }}" class="text-amber-600 dark:text-amber-500 hover:underline">Voir</a>
-        </td>
-        <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-            <a href="{{ path('achievement_edit', {'id': achievement.id}) }}" class="text-amber-600 dark:text-amber-500 hover:underline">Editer</a>
-        </td>
-        <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-            <button type="submit" form="delete_form" class="text-red-800 dark:text-amber-500 hover:underline text-xl" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
-            {{ include('achievement/_delete_form.html.twig') }}
-        </td>
-    </tr>
-{% endfor %}
+{% include "components/pagination.html.twig" with {'paginator': achievements, 'noborder': 'b', 'route': route} %}
+<table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+    <thead class="bg-gray-100 dark:bg-gray-700">
+        <tr>
+            <th scope="col" class="p-4">
+                <div class="flex items-center">
+                    <input id="checkbox-search-all" type="checkbox" class="w-4 h-4 text-amber-600 bg-gray-100 rounded border-gray-300 focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="checkbox-search-all" class="sr-only">checkbox</label>
+                </div>
+            </th>
+            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                Nom
+            </th>
+            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                Description
+            </th>
+            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                Badges
+            </th>
+            <th scope="col" class="p-4">
+                <span class="sr-only">Voir</span>
+            </th>
+            <th scope="col" class="p-4">
+                <span class="sr-only">Editer</span>
+            </th>
+            <th scope="col" class="p-4">
+                <span class="sr-only">Supprimer</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+        {% for achievement in achievements %}
+            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                <td class="p-4 w-4">
+                    <div class="flex items-center">
+                        <input id="checkbox-search-1" type="checkbox" class="w-4 h-4 text-amber-600 bg-gray-100 rounded border-gray-300 focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="checkbox-search-1" class="sr-only">checkbox</label>
+                    </div>
+                </td>
+                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{achievement.name}}</td>
+                <td class="py-4 px-6 text-sm font-medium text-gray-900 dark:text-white">{{achievement.description}}</td>
+                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {% if achievement.badges is not empty %}
+                        {% for badge in achievement.badges %}
+                            <a href="{{ path('badge_show', {'id': badge.id})}}" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-amber-200 dark:text-amber-800 dark:hover:bg-amber-300">{{badge.name}}</a>
+                        {% endfor %}
+                    {% else %}
+                        Aucun Badge
+                    {% endif %}
+                </td>
+                <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                    <a href="{{ path('achievement_show', {'id': achievement.id}) }}" class="text-amber-600 dark:text-amber-500 hover:underline">Voir</a>
+                </td>
+                <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                    <a href="{{ path('achievement_edit', {'id': achievement.id}) }}" class="text-amber-600 dark:text-amber-500 hover:underline">Editer</a>
+                </td>
+                <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                    <button type="submit" form="delete_form" class="text-red-800 dark:text-amber-500 hover:underline text-xl" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+                    {{ include('achievement/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% include "components/pagination.html.twig" with {'paginator': achievements, 'noborder': 't', 'route': route} %}

@@ -1,0 +1,41 @@
+
+{% if pageCount > 1 %}
+    {% if custom_route is defined %}
+        {% set route = custom_route %}
+    {% endif %}
+    <div class="inline-block bg-gray-100">
+        <div class="flex items-baseline flex-row border rounded-sm w-auto">
+        {% if first is defined and current != first %}
+            <a class="text-amber-600 px-3 py-2 text-lg border-r font-bold transition-all hover:text-amber-800" href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>
+        {% else %}
+            <span class="grayscale text-amber-600 px-3 py-2 text-lg border-r font-bold transition-all hover:text-amber-800" href="">&lt;&lt;</span>
+        {% endif %}
+
+        {% if previous is defined %}
+            <a class=" text-amber-600 px-3 text-lg py-2 border-r transition-all hover:text-amber-800" rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+        {% else %}
+            <span class="grayscale text-amber-600 px-3 text-lg py-2 border-r transition-all hover:text-amber-800" rel="prev" href="">&lt;</span>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <a class=" text-amber-600 px-3 py-2 text-lg border-r transition-all hover:text-amber-800" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+            {% else %}
+                <span class="bg-amber-600 text-white px-3 py-2 text-lg font-bold">{{ page }}</span>
+            {% endif %}
+        {% endfor %}
+
+        {% if next is defined %}
+            <a class=" text-amber-600 px-3 py-2 text-lg border-r transition-all hover:text-amber-800" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+        {% else %}
+            <span class="grayscale text-amber-600 px-3 py-2 text-lg border-r transition-all hover:text-amber-800" rel="next" href="">&gt;</span>
+        {% endif %}
+
+        {% if last is defined and current != last %}
+            <a class=" text-amber-600 px-3 py-2 text-lg font-bold transition-all hover:text-amber-800" href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
+        {% else %}
+            <span class="grayscale text-amber-600 px-3 py-2 text-lg font-bold transition-all hover:text-amber-800" href="">&gt;&gt;</span>
+        {% endif %}
+        </div>
+    </div>
+{% endif %}

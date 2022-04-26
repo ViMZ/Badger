@@ -8,6 +8,7 @@ use App\Form\AchievementType;
 use App\Repository\AchievementRepository;
 use App\Repository\UserAchievementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +18,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class AchievementController extends AbstractController
 {
     public function __construct(
-        private EntityManagerInterface $em
+        private EntityManagerInterface $em,
+        private PaginatorInterface $paginator
     ) {
     }
 
     #[Route('/', name: 'achievement_list', methods: ['GET'])]
-    public function list(AchievementRepository $achievementRepository): Response
+    public function list(AchievementRepository $achievementRepository, Request $request): Response
     {
         /** @var User */
         $user = $this->getUser();
+        $query = $request->query->get('query');
+        $page = $request->query->getInt('page', 1);
 
         if (!$user->hasRole(User::ROLE_ADMIN)) {
             return $this->render('achievement/list.html.twig', [
@@ -34,8 +38,22 @@ class AchievementController extends AbstractController
             ]);
         }
 
+        if ($query !== null) {
+            $pagination = $this->paginator->paginate(
+                $achievementRepository->searchWith($query),
+                $page,
+                20
+            );
+        } else {
+            $pagination = $this->paginator->paginate(
+                $achievementRepository->findAllQuery(),
+                $page,
+                20
+            );
+        }
+
         return $this->render('admin/achievement/list.html.twig', [
-            'achievements' => $achievementRepository->findAll(),
+            'achievements' => $pagination,
         ]);
     }
 
@@ -75,8 +93,16 @@ class AchievementController extends AbstractController
     #[Route('/search/{query}', name: 'achievement_search', methods: ['GET'])]
     public function search(Request $request, AchievementRepository $achievementRepository, string $query = ''): Response
     {
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->paginator->paginate(
+            $achievementRepository->searchWith($query),
+            $page,
+            20
+        );
+
         return $this->render('admin/achievement/search_result.html.twig', [
-            'achievements' => $achievementRepository->searchWith($query),
+            'achievements' => $pagination,
+            'route' => 'achievement_list',
         ]);
     }
 

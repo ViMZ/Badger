@@ -9,7 +9,7 @@ class AchievementFixture extends AppFixtures
 {
     public function loadData(ObjectManager $manager): void
     {
-        for ($i = 0; 10 > $i; ++$i) {
+        for ($i = 0; 65 > $i; ++$i) {
             $name = $this->faker->realText(15);
             $description = $this->faker->realText(100);
             $achievement = new Achievement($name, $description);
