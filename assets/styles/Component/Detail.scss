@@ -1,0 +1,66 @@
+.Detail-container {
+    background-color: white;
+    padding: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-shadow: $card-shadow;
+}
+
+.Detail-title {
+    text-align: center;
+    width: 100%;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.Detail-label {
+    margin: auto 0;
+    color: $dark;
+    font-size: 1.5em;
+}
+
+.Detail-input {
+    margin: 1em;
+    color: $secondary;
+}
+
+.Detail-collection {
+    width: 100%;
+    margin: 0 0.5em;
+    border-top: 1.5px solid $gray;
+}
+
+.Detail-collection-title {
+    width: 100%;
+    text-align: start;
+    font-size: 0.8em;
+    color: $gray;
+    margin-left: 0.5em;
+}
+
+.Detail-collection-item {
+    padding: 1em;
+    display: flex;
+    border-bottom: 1px solid $gray;
+}
+
+.Detail-collection-badge {
+    width: 20%;
+    text-align: center;
+    margin: auto;
+}
+
+.Detail-collection-body {
+    width: 80%;
+    padding: 0 1em;
+}
+
+.Detail-collection-body-main {
+    
+}
+
+.Detail-collection-body-detail {
+    font-size: 0.7em;
+    color: $gray;
+}

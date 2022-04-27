@@ -30,6 +30,11 @@ class UserAchievement
         $this->achievement = $achievement;
     }
 
+    public function __toString()
+    {
+        return $this->achievement->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,5 +67,36 @@ class UserAchievement
         ++$this->step;
 
         return $this;
+    }
+
+    public function getBadges(): array
+    {
+        return array_filter(
+            $this->achievement->getBadges()->toArray(),
+            function ($badge) {
+                return $badge->getStep() <= $this->step;
+            }
+        );
+    }
+
+    public function getHigherBadge(): ?Badge
+    {
+        if ($this->getBadges() === []) {
+            return null;
+        }
+
+        foreach ($this->getBadges() as $badge) {
+            if (!isset($higherBadge)) {
+                $higherBadge = $badge;
+
+                continue;
+            }
+
+            if ($badge->getStep() > $higherBadge->getStep()) {
+                $higherBadge = $badge;
+            }
+        }
+
+        return $higherBadge;
     }
 }

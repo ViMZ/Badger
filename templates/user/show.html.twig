@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Voir utilisateur
+{% endblock %}
+
+{% block main %}
+	<div class="Detail-container">
+        <div class="Detail-title">{{user.name}}</div>
+        <span class="Detail-label"><i class="fas fa-envelope"></i></span>
+        <div class="Detail-input">{{user.email}}</div>
+        <h2 class="Detail-collection-title">Badges</h2>
+        <div class="Detail-collection">
+            {% for userAchievement in user.userAchievements %}
+                <div class="Detail-collection-item">
+                    <a href="{{ path('badge_show', {'id': userAchievement.higherBadge.id}) }}" class="Detail-collection-badge">{{userAchievement.higherBadge}}</a>
+                    <div class="Detail-collection-body">
+                        <p class="Detail-collection-body-main">{{userAchievement.achievement.name}}</p>
+                        <p class="Detail-collection-body-detail">{{userAchievement.achievement.description}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
