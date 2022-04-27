@@ -1,4 +1,5 @@
-{% include "components/pagination.html.twig" with {'paginator': achievements, 'noborder': 'b', 'route': route} %}
+{% import "components/components.html.twig" as component %}
+{{ component.pagination(achievements, route) }}
 <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
     <thead class="bg-gray-100 dark:bg-gray-700">
         <tr>
@@ -62,4 +63,4 @@
         {% endfor %}
     </tbody>
 </table>
-{% include "components/pagination.html.twig" with {'paginator': achievements, 'noborder': 't', 'route': route} %}
+{{ component.pagination(achievements, route) }}

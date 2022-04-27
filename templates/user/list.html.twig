@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
+{% import "components/components.html.twig" as component %}
 
 {% block title %}
 	Liste des utilisateurs
 {% endblock %}
 
 {% block main %}
-	{% include "components/table.html.twig" with {table} %}
+	{{ component.table(table) }}
 {% endblock %}

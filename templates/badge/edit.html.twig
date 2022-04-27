@@ -1,14 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Badge
+{% block title %}
+	Editer badge - {{badge.name}}
 {% endblock %}
 
 {% block main %}
-	<h1>Edit Badge</h1>
+	<h1 class="text-center text-xl">Editer badge</h1>
 
-	{{ include('badge/_form.html.twig', {'button_label': 'Update'}) }}
-
-	<a href="{{ path('badge_index') }}">back to list</a>
+	{{ include('badge/_form.html.twig') }}
 
 	{{ include('badge/_delete_form.html.twig') }}
 {% endblock %}

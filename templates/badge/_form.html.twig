@@ -1,0 +1,15 @@
+{% form_theme form 'theme/form_theme.html.twig' %}
+
+{{ form_start(form) }}
+	<div class="EntityForm" id="badge_form">
+		{{ form_row(form.name) }}
+		{{ form_row(form.description) }}
+        {{ form_row(form.step) }}
+	</div>
+	<div class="flex justify-end">
+		<a href="{{app.request.query.get('referrer')}}" class="Button Button-primary">Annuler</a>
+		<button type="submit" class="Button Button-primary">Enregistrer</button>
+	</div>
+{{ form_end(form) }}
+
+{{ include('badge/_delete_form.html.twig') }}

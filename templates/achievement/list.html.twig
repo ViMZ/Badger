@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-
+{% import "components/components.html.twig" as component %}
 
 {% block title %}
     Mes Badges
@@ -39,15 +39,9 @@
     <div class="grid">
         {% for achievement in allAchievements %}
             {% if userAchievements[achievement.id] is defined %}
-                {% include "components/badge_short.html.twig" with {
-                    achievement,
-                    'owned': true
-                } %}
+                {{component.badge_short(achievement, true)}}
             {% else %}
-                {% include "components/badge_short.html.twig" with {
-                    achievement,
-                    'owned': false
-                } %}
+                {{component.badge_short(achievement, false)}}
             {% endif %}
         {% endfor %}
     </div>

@@ -3,8 +3,10 @@
 	user: L'utilisateur actuel
 #}
 {% extends 'base.html.twig' %}
+{% import "components/components.html.twig" as component %}
 
-{% block title %}Catégories de badges
+{% block title %}
+	Catégories de badges
 {% endblock %}
 
 {% block main %}
@@ -20,7 +22,7 @@
 			</p>
 			{% if is_granted('ROLE_ADMIN') %}
 				<button type="submit" form="delete_form" class="inline-flex items-center px-5 py-2.5 text-sm border font-medium text-center transition-all rounded-lg text-black bg-white hover:border-black focus:ring-4 focus:outline-none focus:ring-black focus:ring-opacity-30">Supprimer</button>
-				{% include "components/button_primary.html.twig" with {"type": "a", "url":path('achievement_edit', {'id': achievement.id}), "text": "Editer"} %}
+				{{ component.button_simple('a', path('achievement_edit', {'id': achievement.id}), "Editer") }}
 				{{ include('achievement/_delete_form.html.twig') }}
 			{% endif %}
 		</div>

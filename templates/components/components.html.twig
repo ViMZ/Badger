@@ -1,0 +1,76 @@
+{% macro button_simple(type, url, text) %}
+    <{{type}} href="{{url}}" class="inline-flex items-center px-5 py-2.5 text-sm border font-medium text-center transition-all rounded-lg text-black bg-white hover:border-black focus:ring-4 focus:outline-none focus:ring-black focus:ring-opacity-30">
+        {{text}}
+    </{{type}}>
+{% endmacro %}
+
+{% macro table(table) %}
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <caption></caption>
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    {% for field in table.fields %}
+                        <th scope="col" class="px-6 py-3">
+                            {{field.name}}
+                        </th>
+                    {% endfor %}
+                    {% if table.actions is not empty %}
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Actions</span>
+                        </th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in table.items %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        {% for field in table.fields %}
+                            <td class="px-6 py-4">
+                                {{ field.valueCallback.call(item, item) }}
+                            </td>
+                        {% endfor %}
+                        {% if table.actions is not empty %}
+                            <td class="px-6 py-4 text-right">
+                                {% for action in table.actions %}
+                                    <a href="{{action.url}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{action.name}}</a>
+                                {% endfor %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endmacro %}
+
+{% macro pagination(paginator, route) %}
+    {% set minResults = (paginator.getItemNumberPerPage) * (paginator.getCurrentPageNumber -1) %}
+    {% set maxResults = minResults + paginator.getItemNumberPerPage %}
+    {% set maxResults = maxResults < paginator.getTotalItemCount ? maxResults : paginator.getTotalItemCount %}
+
+    <div class="flex justify-between bg-gray-100">
+        <div class="flex align-middle p-3">Total : {{paginator.getTotalItemCount}}</div>
+        <div class="flex align-middle p-3">Résultats : {{minResults}} - {{maxResults}} </div>
+        <div class="navigation block">
+            {{ knp_pagination_render(paginator, null, null , {'custom_route': route}) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro badge_short(achievement, owned) %}
+    <div {{owned ? 'data-owned' : 'data-not-owned'}} class="item">
+        <div class="item-content {{owned ? '' : 'grayscale'}} max-w-sm p-2 m-2 rounded-full w-40 h-72 bg-emerald-300 shadow-md dark:bg-gray-800 dark:border-gray-700">
+            <span href="#" class="flex align-center justify-center">
+                <img class="rounded-t-lg w-28 border-amber-700" src="{{ asset('build/images/default_badge_icon.svg') }}" alt="" />
+            </span>
+            <div class="p-5 text-center h-40">
+                <h5 class="h-12 mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{achievement.name}}</h5>
+                <p class="mb-3 h-12 font-normal text-xs text-gray-700 dark:text-gray-400">
+                    {{achievement.description|length > 30 ? achievement.description|slice(0, 30) ~ '...' : achievement.description}}
+                </p>
+                {{ _self.button_simple("a", path('achievement_show', {'id': achievement.id}), "Voir" )}}
+            </div>
+        </div>
+    </div>
+{% endmacro %}

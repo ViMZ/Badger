@@ -81,7 +81,7 @@ class BadgeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('badge_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('badge_show', ['id' => $badge->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('badge/edit.html.twig', [
@@ -99,6 +99,6 @@ class BadgeController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('badge_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('achievement_index', [], Response::HTTP_SEE_OTHER);
     }
 }
