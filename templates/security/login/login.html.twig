@@ -33,16 +33,7 @@
 		</div>
 		{# CSRF token #}
 		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-		<button type="submit" class="text-white bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-600 dark:focus:ring-amber-800">Se connecter</button>
-
-		{% if app.user %}
-			<div class="mb-3">
-				Vous etes déjà connecté en tant que
-				{{ app.user.name ?? app.user.email }},
-				<a href="{{ path('app_logout') }}">Déconnexion</a>
-			</div>
-		{% else %}
-			<a href="{{path('app_register')}}" class="text-amber-600 bg-white hover:bg-amber-100 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-600 dark:focus:ring-amber-800">S'inscrire</a>
-		{% endif %}
+		<button type="submit" class="Button Button-primary">Se connecter</button>
+		<a href="{{path('app_register', {'referrer': app.request.requestUri})}}" class="Button Button-primary-outline">S'inscrire</a>
 	</form>
 {% endblock %}

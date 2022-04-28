@@ -1,6 +1,8 @@
 {% extends 'security/base.html.twig' %}
-{% form_theme registrationForm 'tailwind_2_layout.html.twig' %}
-{% block title %}Register
+{% form_theme registrationForm 'theme/form_theme.html.twig' %}
+
+{% block title %}
+	Badger Inscription
 {% endblock %}
 
 {% block main %}
@@ -8,15 +10,14 @@
 		<div class="alert alert-danger" role="alert">{{ flashError }}</div>
 	{% endfor %}
 
-	<h1>Register</h1>
+	<h1 class="text-center text-xl">Inscription</h1>
 
 	{{ form_start(registrationForm) }}
+	{{ form_row(registrationForm.name) }}
 	{{ form_row(registrationForm.email) }}
-	{{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-	{{ form_row(registrationForm.agreeTerms) }}
+	{{ form_row(registrationForm.plainPassword)}}
 
-	<button type="submit" class="btn">Register</button>
+	<a href="{{app.request.query.get('referrer')}}" class="Button Button-primary-outline">Annuler</a>
+	<button type="submit" class="Button Button-primary">S'inscrire</button>
 	{{ form_end(registrationForm) }}
 {% endblock %}

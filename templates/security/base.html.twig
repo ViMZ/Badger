@@ -3,7 +3,20 @@
 {% block body %}
 	<body class="bg-stone-200">
 		<header>
-			{% block header %}{% endblock %}
+			{% block header %}
+					<div id="Alert-container">
+						{% for flashtype, flash in app.flashes() %}
+							<div data-controller="alert">
+								<div class="Alert Alert--{{flashtype}}" role="alert" data-alert-target="alert">
+									{% for sentence in flash %}
+										<p>{{ sentence }}</p>
+									{% endfor %}
+									<button class="Alert-close" data-alert-target="close" data-action="alert#fadeout"><i class="fa-solid fa-xmark"></i></button>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+			{% endblock %}
 		</header>
 		<main>
 			<div class="rounded-xl bg-white m-20 sm:p-6 w-1/2 mx-auto">

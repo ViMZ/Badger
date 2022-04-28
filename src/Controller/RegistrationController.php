@@ -31,10 +31,10 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager
     ): Response {
+        $this->redirectToRoute('app_login');
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -43,7 +43,6 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -54,12 +53,12 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('badger@contact.com', 'Badger'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Veuillez confirmer votre adresse mail')
                     ->htmlTemplate('security/registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
+            $this->addFlash('success', 'Un email de confirmation a été envoyé');
 
-            return $this->redirectToRoute('achievement_list');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('security/registration/register.html.twig', [
@@ -91,8 +90,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre email a été confirmé avec succès !');
 
         return $this->redirectToRoute('app_login');
     }
