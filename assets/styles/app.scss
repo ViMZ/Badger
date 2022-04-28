@@ -14,10 +14,12 @@
 @import 'Component/Detail';
 @import 'Component/Form';
 @import 'Component/Alert';
+@import 'Component/Header';
+@import 'Component/Badge';
 
 body {
     font-family: 'Baskerville';
-    background-color: white;
+    background-color: $secondary;
     color: rgb(42, 42, 42);
     border-color: rgb(42, 42, 42);
 }

@@ -11,19 +11,37 @@ if (document.getElementsByClassName('grid').length !== 0) {
     const debouncedSearch = debounce((e) => {
         const query = e.target.value;
         grid.filter((item) => {
-            const text = item._element.innerText
-            return text.includes(query);
+            const text = item._element.innerText;
+
+            if (typeof window.gridFilter !== 'undefined') {
+                return text.includes(query) && item._element.hasAttribute(window.gridFilter);
+            } else {
+                return text.includes(query);
+            }
         })
     }, 200);
-    
-    ownedFilter.addEventListener('click', () => {
+
+    const filters = document.getElementsByClassName('gridfilter');
+    function focus(item) {
+        for (const filter of filters) {
+            filter.classList.remove('Button--selected');
+        }
+        item.classList.add('Button--selected');
+    }
+
+    ownedFilter.addEventListener('click', (e) => {
+        window.gridFilter = 'data-owned';
         grid.filter('[data-owned]');
+        focus(e.currentTarget);
     })
-    notOwnedFilter.addEventListener('click', () => {
+    notOwnedFilter.addEventListener('click', (e) => {
+        window.gridFilter = 'data-not-owned';
         grid.filter('[data-not-owned]');
+        focus(e.currentTarget);
     })
-    noFilter.addEventListener('click', () => {
-        grid.filter((item) => {return true});
+    noFilter.addEventListener('click', (e) => {
+        grid.filter(() => {return true});
+        focus(e.currentTarget);
     })
 
     searchFilter.addEventListener('keyup', (e) => debouncedSearch(e));

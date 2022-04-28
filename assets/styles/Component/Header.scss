@@ -1,0 +1,55 @@
+.Header-nav {
+    @apply pr-2 text-sm shadow-md;
+    background-color: $primary;
+}
+
+.Header-logo {
+    @apply flex items-center pl-2 py-1 pr-10;
+    color: $white;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+        background-color: $primary-light;
+    }
+}
+
+.Header-logo-icon {
+    @apply mr-3 h-6 sm:h-10;
+}
+
+.Header-logo-text {
+    @apply self-center whitespace-nowrap;
+}
+
+.Header-menu {
+    @apply hidden w-full;
+}
+
+.Header-menu-item {
+    padding: 0 2em;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    color: $white;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+        background-color: $primary-light;
+        color: $ternary
+    }
+
+    &.Header-menu-item--active{
+        background-color: $primary-light;
+        color: $ternary;
+    }
+}
+
+@screen md {
+    .Header-menu {
+        @apply flex w-auto order-1;
+    }
+
+    .Header-menu-list {
+        @apply flex-row space-x-8 mt-0 font-bold;
+    }
+}

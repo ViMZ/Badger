@@ -15,23 +15,28 @@
             {% set notownedNbr = notownedNbr + 1 %}
             {% endif %}
     {% endfor %}
-    <div class="px-5"><input id="grid-filter-search" data-action="achievements#search" value="{{app.request.query.get('query')}}" type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500" placeholder="Rechercher"></div> 
-    <div class="grid-filters p-5">
-        <button id="grid-filter-owned" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black bg-black bg-opacity-10 hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
+    <div class="grid-filters Form-action-bar">
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <i class="fa-solid fa-magnifying-glass w-5 h-5 text-gray-500"></i>
+            </div>
+            <input id="grid-filter-search" data-action="achievements#search" value="{{app.request.query.get('query')}}" type="text" id="table-search" class="Form-search" placeholder="Rechercher">
+        </div> 
+        <button id="grid-filter-owned" type="button" class="gridfilter Button Button-primary">
             Possédés 
-            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold rounded-full">
+            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold">
                 &nbsp;({{ownedNbr}})
             </span>
         </button>
-        <button id="grid-filter-not-owned" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black bg-black bg-opacity-10 hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
+        <button id="grid-filter-not-owned" type="button" class="gridfilter Button Button-primary">
             Non-Possédés
-            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold rounded-full">
+            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold">
                 &nbsp;({{notownedNbr}})
             </span>
         </button>
-        <button id="grid-filter-none" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center transition-all rounded-lg text-black bg-black bg-opacity-10 hover:bg-opacity-20 focus:ring-4 focus:outline-none focus:ring-white focus:ring-opacity-30">
+        <button id="grid-filter-none" type="button" class="gridfilter Button Button-primary Button--selected">
             Tous
-            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold rounded-full">
+            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold">
                 &nbsp;({{allAchievements|length}})
             </span>
         </button>

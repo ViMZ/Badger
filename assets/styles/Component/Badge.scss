@@ -1,0 +1,48 @@
+.Badge {
+    @apply max-w-sm p-2 m-2 w-40 h-72 shadow-md rounded-full;
+    display: block;
+    border-radius: 10px; 
+    
+    &.Badge-owned {
+
+        &.Badge-success {
+            background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(85,149,27,1) 0.1%, rgba(183,219,87,1) 90% );
+        }
+        
+        &.Badge-failure {
+            background-image: radial-gradient( circle farthest-corner at -0.2% 99.7%,  rgba(190,53,145,1) 0%, rgba(239,69,115,1) 100.2% );
+        }
+        
+        &.Badge-fun {
+            background-image: radial-gradient( circle farthest-corner at -0.8% 4.3%,  rgba(59,176,255,1) 0%, rgb(137, 227, 245) 83.6% );
+        }
+    }
+}
+
+.Badge-content {
+    padding: 1.75rem;
+    text-align: center;
+    height: 10rem;
+}
+
+.Badge-image {
+    @apply rounded-full w-auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $card-shadow;
+    opacity: 0.2;
+    
+    &.Badge-owned {
+        opacity: 1;
+    }
+}
+
+.Badge-name {
+    @apply h-12 mb-2 text-xl font-bold tracking-tight;
+    color: $gray;
+
+    &.Badge-owned {
+        color: $badge_success;
+    }
+}

@@ -1,8 +1,20 @@
 $danger: rgb(190, 73, 5);
-$primary: rgb(217, 119, 6);
-$secondary: rgb(243, 143, 29);
+$primary: rgb(27, 27, 27);
+$primary-light: rgb(34,34,34);
+$primary-opaque: rgba(27,27,27, 0.2);
+$secondary: rgb(45,45,45);
+$ternary: rgb(19, 175, 240);
 $shadow: rgb(209 213 219 / 1);
 $card-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
 $dark: rgb(42, 42, 42);
 $gray: rgba(136, 135, 135, 0.76);
-$border_radius: 7.5px;
+$white : white;
+$border_radius: 0.5rem;
+$gold: radial-gradient(ellipse farthest-corner at right bottom, #AE9313 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFD7A5 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+
+$bg_success: rgb(58, 58, 155);
+$bg_failure: linear-gradient(156deg, rgba(255,113,0,1) 0%, rgba(168,246,85,1) 35%, rgba(0,212,255,1) 100%);
+$bg_fun: linear-gradient(156deg, rgba(255,113,0,1) 0%, rgba(168,246,85,1) 35%, rgba(0,212,255,1) 100%);
+$badge_success: $white;
+$badge_failure: red;
+$badge_fun: rgb(255, 255, 255);
