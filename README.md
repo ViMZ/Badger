@@ -1,5 +1,7 @@
 # Badger
-
+## News
+    Le développement de cette application a démarré le 20/01/2022, elle est encore en cours de développement.
+    
 ## Installation
 ```bash
 # Pour pouvoir build les assets correctement, il faut une version récente de nodejs > 16 . On mettra peut être en place un container dans le futur
