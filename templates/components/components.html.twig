@@ -59,13 +59,15 @@
 {% endmacro %}
 
 {% macro badge_short(achievement, owned) %}
-    <div {{owned ? 'data-owned' : 'data-not-owned'}} class="item">
-        <a class="item-content Badge {{owned ? 'Badge-owned'}} Badge-success" href="{{path('achievement_show', {'id': achievement.id})}}">
-            <span class="Badge-image {{owned ? 'Badge-owned'}}">
-                <img src="{{ asset('build/images/default_badge_icon.svg') }}" alt="" />
-            </span>
+    <div {{owned ? 'data-owned' : 'data-not-owned'}} class="item Badge-container">
+        <a class="item-content Badge {{owned ? 'Badge-owned'}}" href="{{path('achievement_show', {'id': achievement.id})}}">
+            <img class="Badge-image {{owned ? 'Badge-owned'}}" src="{{ asset('build/images/success-pix.png') }}" alt="" />
             <div class="Badge-content">
                 <h5 class="Badge-name {{owned ? 'Badge-owned'}}">{{achievement.name}}</h5>
+            </div>
+            <div class="Badge-cloison"></div>
+            <div class="Badge-back">
+                <div class="Badge-description">{{achievement.description|length > 70 ? achievement.description|slice(0, 70) ~ '...' : achievement.description}}</div>
             </div>
         </a>
     </div>

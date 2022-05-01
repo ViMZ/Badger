@@ -16,10 +16,12 @@ class BadgeGiveType extends AbstractType
         $builder
             ->add('user', EntityType::class, [
                 'placeholder' => 'Choisissez un utilisateur',
+                'expanded' => true,
                 'class' => User::class,
             ])
             ->add('achievement', EntityType::class, [
                 'placeholder' => 'Choisissez un badge',
+                'expanded' => true,
                 'class' => Achievement::class,
             ])
             ->add('submit', SubmitType::class, [

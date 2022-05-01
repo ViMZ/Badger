@@ -1,48 +1,84 @@
 .Badge {
-    @apply max-w-sm p-2 m-2 w-40 h-72 shadow-md rounded-full;
+    @apply max-w-sm m-2 w-40 h-52;
     display: block;
-    border-radius: 10px; 
-    
-    &.Badge-owned {
+}
 
-        &.Badge-success {
-            background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(85,149,27,1) 0.1%, rgba(183,219,87,1) 90% );
-        }
+.Badge-container:hover {
+    & .Badge-image {
+        transform: rotateY(180deg)!important;
+        z-index: 1;
+    }
         
-        &.Badge-failure {
-            background-image: radial-gradient( circle farthest-corner at -0.2% 99.7%,  rgba(190,53,145,1) 0%, rgba(239,69,115,1) 100.2% );
-        }
-        
-        &.Badge-fun {
-            background-image: radial-gradient( circle farthest-corner at -0.8% 4.3%,  rgba(59,176,255,1) 0%, rgb(137, 227, 245) 83.6% );
-        }
+    & .Badge-back {
+        transform: rotateY(0deg)!important;
+        z-index: 3;
+    }
+
+    & .Badge-cloison {
+        transform: rotateY(180deg) translateX($badge-thickness);
+        background-color: $primary;
     }
 }
 
-.Badge-content {
-    padding: 1.75rem;
+.Badge-cloison {
+    background: $gold;
+    transition: 0.3s ease-in-out;
+    @apply w-40 h-40;
+    position: absolute;
+    top: 0;
+    left: $badge-thickness;
+    z-index: 2;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+
+.Badge-back {
+    transform: rotateY(-180deg);
+    padding: 3em 1em;
+    z-index: 1;
+    @apply w-40 h-40;
+    display: flex;
+    transition: 0.3s ease-in-out;
+    position: absolute;
+    color: $primary;
+    top: 0;
+    left: $badge-thickness;
+    background: $gold;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
     text-align: center;
-    height: 10rem;
+    align-items: center;
+}
+
+.Badge-description {
+    font-size: 0.8em;
+}
+
+.Badge-content {
+    padding: 0.5rem;
+    text-align: center;
+    height: 1rem;
 }
 
 .Badge-image {
-    @apply rounded-full w-auto;
+    @apply w-40 h-40 grayscale;
+    position: relative;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: $card-shadow;
-    opacity: 0.2;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    transition: 0.3s ease-in-out;
+    z-index: 3;
     
     &.Badge-owned {
+        @apply grayscale-0;
         opacity: 1;
     }
 }
 
 .Badge-name {
-    @apply h-12 mb-2 text-xl font-bold tracking-tight;
-    color: $gray;
-
-    &.Badge-owned {
-        color: $badge_success;
-    }
+    transition: 0.3s ease-in-out;
+    @apply h-12 mb-2 text-sm font-bold tracking-tight;
+    color: $white;
 }

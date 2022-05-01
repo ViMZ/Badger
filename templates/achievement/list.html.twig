@@ -15,31 +15,33 @@
             {% set notownedNbr = notownedNbr + 1 %}
             {% endif %}
     {% endfor %}
-    <div class="grid-filters Form-action-bar">
-        <div class="relative">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <i class="fa-solid fa-magnifying-glass w-5 h-5 text-gray-500"></i>
+    <div class="Grid-header">
+        <div class="grid-filters Grid-action-bar">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <i class="fa-solid fa-magnifying-glass w-5 h-5 text-gray-500"></i>
+                </div>
+                <input id="grid-filter-search" data-action="achievements#search" value="{{app.request.query.get('query')}}" type="text" id="table-search" class="Form-search" placeholder="Rechercher">
             </div>
-            <input id="grid-filter-search" data-action="achievements#search" value="{{app.request.query.get('query')}}" type="text" id="table-search" class="Form-search" placeholder="Rechercher">
-        </div> 
-        <button id="grid-filter-owned" type="button" class="gridfilter Button Button-primary">
-            Possédés 
-            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold">
-                &nbsp;({{ownedNbr}})
-            </span>
-        </button>
-        <button id="grid-filter-not-owned" type="button" class="gridfilter Button Button-primary">
-            Non-Possédés
-            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold">
-                &nbsp;({{notownedNbr}})
-            </span>
-        </button>
-        <button id="grid-filter-none" type="button" class="gridfilter Button Button-primary Button--selected">
-            Tous
-            <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold">
-                &nbsp;({{allAchievements|length}})
-            </span>
-        </button>
+            <button id="grid-filter-owned" type="button" class="gridfilter Button Button-primary">
+                Possédés
+                <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold">
+                    &nbsp;({{ownedNbr}})
+                </span>
+            </button>
+            <button id="grid-filter-not-owned" type="button" class="gridfilter Button Button-primary">
+                Non-Possédés
+                <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold">
+                    &nbsp;({{notownedNbr}})
+                </span>
+            </button>
+            <button id="grid-filter-none" type="button" class="gridfilter Button Button-primary Button--selected">
+                Tous
+                <span class="inline-flex items-center justify-center h-4 ml-2 text-xs font-semibold">
+                    &nbsp;({{allAchievements|length}})
+                </span>
+            </button>
+        </div>
     </div>
     <div class="grid">
         {% for achievement in allAchievements %}

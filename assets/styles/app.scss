@@ -16,10 +16,12 @@
 @import 'Component/Alert';
 @import 'Component/Header';
 @import 'Component/Badge';
+@import 'Component/Give';
+@import 'Component/Grid';
 
 body {
     font-family: 'Baskerville';
-    background-color: $secondary;
+    background: $background;
     color: rgb(42, 42, 42);
     border-color: rgb(42, 42, 42);
 }

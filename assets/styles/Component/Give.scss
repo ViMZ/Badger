@@ -1,0 +1,15 @@
+.Give-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Give-block {
+    width: 50%;
+}
+
+.Give-item {
+    cursor: pointer !important;
+    &:hover {
+        background-color: $primary-light;
+    }
+}
