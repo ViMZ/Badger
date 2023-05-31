@@ -1,0 +1,20 @@
+.Table {
+    color: $white;
+    text-align: center;
+}
+
+.Table-head {
+    color: $primary;
+    background-color: $ternary;
+}
+
+.Table-row {
+    background-color: $primary;
+    border-color: $ternary;
+    transition: 0.1s ease-in-out;
+
+    &:hover {
+        color: $ternary;
+        background-color: $secondary;
+    }
+}

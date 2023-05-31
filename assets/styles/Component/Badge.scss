@@ -4,7 +4,7 @@
 }
 
 .Badge-container:hover {
-    & .Badge-image {
+    & .Badge-contour {
         transform: rotateY(180deg)!important;
         z-index: 1;
     }
@@ -16,12 +16,13 @@
 
     & .Badge-cloison {
         transform: rotateY(180deg) translateX($badge-thickness);
-        background-color: $primary;
+        background-color: darken($ternary, 10);
     }
 }
 
 .Badge-cloison {
-    background: $gold;
+    @apply grayscale opacity-80;
+    background: darken($ternary, 10);
     transition: 0.3s ease-in-out;
     @apply w-40 h-40;
     position: absolute;
@@ -29,24 +30,34 @@
     left: $badge-thickness;
     z-index: 2;
     clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+
+    &.Badge-owned {
+        @apply grayscale-0;
+        opacity: 1;
+    }
 }
 
 
 .Badge-back {
+    @apply grayscale opacity-80 w-40 h-40;
     transform: rotateY(-180deg);
     padding: 3em 1em;
     z-index: 1;
-    @apply w-40 h-40;
     display: flex;
     transition: 0.3s ease-in-out;
     position: absolute;
     color: $primary;
     top: 0;
     left: $badge-thickness;
-    background: $gold;
+    background: $ternary;
     clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
     text-align: center;
     align-items: center;
+
+    &.Badge-owned {
+        @apply grayscale-0;
+        opacity: 1;
+    }
 }
 
 .Badge-description {
@@ -60,7 +71,8 @@
 }
 
 .Badge-image {
-    @apply w-40 h-40 grayscale;
+    width: 9rem;
+    height: 9rem;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -77,8 +89,31 @@
     }
 }
 
+.Badge-contour {
+    @apply grayscale opacity-80;
+    width: 10rem;
+    height: 10rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $card-shadow;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    transition: 0.3s ease-in-out;
+    z-index: 3;
+    background-color: $ternary;
+
+    &.Badge-owned {
+        @apply grayscale-0;
+        opacity: 1;
+    }
+}
+
 .Badge-name {
     transition: 0.3s ease-in-out;
     @apply h-12 mb-2 text-sm font-bold tracking-tight;
-    color: $white;
+    color: $primary;
+    text-align: center;
+    font-size: 1.1em;
 }

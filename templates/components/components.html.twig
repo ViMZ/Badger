@@ -6,9 +6,9 @@
 
 {% macro table(table) %}
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table class="w-full text-sm text-left Table">
             <caption></caption>
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xsuppercase Table-head">
                 <tr>
                     {% for field in table.fields %}
                         <th scope="col" class="px-6 py-3">
@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 {% for item in table.items %}
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr class="Table-row border-b">
                         {% for field in table.fields %}
                             <td class="px-6 py-4">
                                 {{ field.valueCallback.call(item, item) }}
@@ -61,12 +61,14 @@
 {% macro badge_short(achievement, owned) %}
     <div {{owned ? 'data-owned' : 'data-not-owned'}} class="item Badge-container">
         <a class="item-content Badge {{owned ? 'Badge-owned'}}" href="{{path('achievement_show', {'id': achievement.id})}}">
-            <img class="Badge-image {{owned ? 'Badge-owned'}}" src="{{ asset('build/images/success-pix.png') }}" alt="" />
+            <div class="Badge-contour {{owned ? 'Badge-owned'}}">
+                <img class="Badge-image {{owned ? 'Badge-owned'}}" src="{{ asset('build/images/success-pix.png') }}" alt="" />
+            </div>
             <div class="Badge-content">
                 <h5 class="Badge-name {{owned ? 'Badge-owned'}}">{{achievement.name}}</h5>
             </div>
-            <div class="Badge-cloison"></div>
-            <div class="Badge-back">
+            <div class="Badge-cloison {{owned ? 'Badge-owned'}}"></div>
+            <div class="Badge-back {{owned ? 'Badge-owned'}}">
                 <div class="Badge-description">{{achievement.description|length > 70 ? achievement.description|slice(0, 70) ~ '...' : achievement.description}}</div>
             </div>
         </a>

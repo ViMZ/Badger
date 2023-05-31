@@ -5,11 +5,31 @@
 
 .Give-block {
     width: 50%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .Give-item {
-    cursor: pointer !important;
+    background-color: $ternary;
+    color: $white;
+    width: fit-content;
+    margin: 1em;
+}
+
+.Give-label>label {
+    height: 100px;
+    width: 120px;
+    padding: 1em;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+    border: 3px solid $white;
+
     &:hover {
-        background-color: $primary-light;
+        background-color: lighten($color: $ternary, $amount: 10);
+        cursor: pointer !important;
+        border-color: $primary;
     }
 }

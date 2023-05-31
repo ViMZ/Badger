@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
+{% import "components/components.html.twig" as component %}
 {% form_theme form 'theme/form_theme.html.twig' %}
 
-{% block title %}Donner un Badge
+{% block title %}Donner un point
 {% endblock %}
 
 {% block main %}
@@ -12,16 +13,17 @@
                 {% for user in form.user.children %}
                     <div class="Give-item">
                         <div class="Give-label">{{ form_label(user)}}</div>
-                        <div class="Give-value sr-only">{{ form_widget(user)}}</div>
+                        <div class="Give-value">{{ form_widget(user)}}</div>
                     </div>
                 {% endfor %}
             </div>
             <div class="Give-block">
                 {% for achievement in form.achievement.children %}
-                    <div class="Give-item">
+                    {{component.badge_short(achievement, true)}}
+                    {# <div class="Give-item">
                         <div class="Give-label">{{ form_label(achievement)}}</div>
-                        <div class="Give-value sr-only">{{ form_widget(achievement)}}</div>
-                    </div>
+                        <div class="Give-value">{{ form_widget(achievement)}}</div>
+                    </div> #}
                 {% endfor %}
             </div>
         </div>

@@ -29,7 +29,7 @@ class ContextProvider
                 ->add(new Entry('Badges', 'achievement_list'));
         } else {
             $this->menu
-                ->add(new Entry('Attribuer un Badge', 'badge_give'))
+                ->add(new Entry('Donner un point', 'badge_give'))
                 ->add(new Entry('Mes Badges', 'achievement_list'));
         }
 

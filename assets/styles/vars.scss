@@ -3,7 +3,7 @@ $primary: rgb(34, 34, 30);
 $primary-light: lighten($primary, 10);
 $primary-opaque: rgba(27,27,27, 0.2);
 $secondary: rgb(45,45,45);
-$ternary: rgb(148, 144, 91);
+$ternary: rgb(165, 154, 88);
 $shadow: 60deg 9% 48%;
 $card-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
 $dark: rgb(42, 42, 42);
@@ -13,4 +13,5 @@ $border_radius: 0.5rem;
 $gold: radial-gradient(ellipse farthest-corner at right bottom, #AE9313 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFD7A5 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
 $background: #d1d1c0;
 
-$badge-thickness: 7px;
+$badge-thickness: 5px;
+$outline: $ternary;

@@ -1,0 +1,9 @@
+.Search {
+
+    &:focus {
+        color: $primary;
+        outline-color: $outline;
+        border-color: $outline;
+        box-shadow: none;
+    }
+}
